@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quran_app/screens/home_screen.dart';
+import 'package:quran_app/screens/regesteration/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(Duration(seconds: 4), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => HomeScreen(),
+        builder: (_) => LoginScreen(),
       ));
     });
     // TODO: implement initState
@@ -22,6 +22,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/splash_img.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
   }
 }
