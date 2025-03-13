@@ -2,7 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:quran_app/constants/app_colors.dart';
 import 'package:quran_app/screens/prayer_screen.dart';
-import 'package:quran_app/screens/sebha_screen.dart';
+import 'package:quran_app/screens/quran_screen.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List screens = [HomeScreen(), SebhaScreen(), PrayerScreen()];
+  List screens = [HomeScreen(), QuranScreen(), PrayerScreen()];
   int screenIndex = 0;
 
   @override
@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
         color: AppColors.darkGreen,
         items: <Widget>[
           Icon(Icons.home, size: 30, color: Colors.white),
-          Icon(Icons.list, size: 30, color: Colors.white),
+          Icon(Icons.menu_book_outlined, size: 30, color: Colors.white),
           Icon(Icons.timer, size: 30, color: Colors.white),
         ],
         onTap: (index) {

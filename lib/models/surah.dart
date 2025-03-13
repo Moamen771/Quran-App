@@ -4,11 +4,11 @@ class Surah {
   final String arName;
   final String enName;
   final String revelationType;
-  final List<Ayah> ayah;
+  final int numberOfAyahs;
 
   Surah(
       {required this.arName,
       required this.enName,
       required this.revelationType,
-      required this.ayah});
+      required this.numberOfAyahs});
 }
