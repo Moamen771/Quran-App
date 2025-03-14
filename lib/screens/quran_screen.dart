@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quran_app/models/surah.dart';
+import 'package:quran_app/models/surahs.dart';
 import 'package:quran_app/services/api_services.dart';
 import '../constants/app_colors.dart';
 import '../widegts/quran widgets/quran_container.dart';
@@ -12,7 +12,7 @@ class QuranScreen extends StatefulWidget {
 }
 
 class _QuranScreenState extends State<QuranScreen> {
-  List<Surah>? surahs;
+  List<Surahs>? surahs;
 
   getSurahs() async {
     ApiServices apiServices = ApiServices();
