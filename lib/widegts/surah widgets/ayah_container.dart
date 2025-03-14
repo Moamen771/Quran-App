@@ -16,11 +16,17 @@ class AyahContainer extends StatelessWidget {
         color: AppColors.lighterGreen,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(
-        '${ayah.text} ${ayah.numberInSurah}',
-        textAlign: TextAlign.end,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
+      child: ayah.surahName != "سُورَةُ ٱلْفَاتِحَةِ" && ayah.numberInSurah == 1
+          ? Text(
+              '${ayah.text.replaceAll("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "")} ${ayah.numberInSurah}',
+              textAlign: TextAlign.end,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            )
+          : Text(
+              '${ayah.text} ${ayah.numberInSurah}',
+              textAlign: TextAlign.end,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
     );
   }
 }

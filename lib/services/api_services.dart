@@ -27,8 +27,8 @@ class ApiServices {
       if (i["name"] == name) {
         ayahs = i["ayahs"];
       }
-      return ayahs;
     }
+    return ayahs;
   }
 
   getPrayerTime() async {

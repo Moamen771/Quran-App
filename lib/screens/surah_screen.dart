@@ -26,7 +26,6 @@ class _SurahScreenState extends State<SurahScreen> {
   void initState() {
     getSurah();
     super.initState();
-    print(surahAyahs);
   }
 
   @override
