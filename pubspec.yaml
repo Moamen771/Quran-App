@@ -37,6 +37,7 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   dio: ^5.8.0+1
   curved_navigation_bar: ^1.0.6
+  audioplayers:
 
 dev_dependencies:
   flutter_test:

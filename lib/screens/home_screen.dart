@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quran_app/constants/app_colors.dart';
+import 'package:quran_app/screens/radio_screen.dart';
 import 'package:quran_app/screens/tasbeeh_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -113,24 +114,31 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                          color: Colors.blue[50],
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Eslamic Radio',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          Image.asset(
-                            'assets/radio-icon.png',
-                            height: 200,
-                          ),
-                        ],
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RadioScreen(),
+                          )),
+                      child: Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                            color: Colors.blue[50],
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Eslamic Radio',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            Image.asset(
+                              'assets/radio-icon.png',
+                              height: 200,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -15,10 +15,12 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lighterGreen,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(),
           FittedBox(
             child: Text(
               counter.toString(),

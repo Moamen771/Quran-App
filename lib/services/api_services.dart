@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:quran_app/models/radio_item.dart';
 import 'package:quran_app/models/surahs.dart';
 
 class ApiServices {
@@ -44,5 +45,16 @@ class ApiServices {
         'https://api3.islamhouse.com/v3/paV29H2gm56kvLPy/main/get-item/2522/ar/json');
     Map json = response.data;
     return json;
+  }
+
+  getRadio() async {
+    var response =
+        await dio.get('https://mp3quran.net/api/v3/radios?language=ar');
+    List json = response.data["radios"];
+    List<RadioItem> radioItems = [];
+    for (Map<String, dynamic> i in json) {
+      radioItems.add(RadioItem(id: i["id"], name: i["name"], url: i["url"]));
+    }
+    return radioItems;
   }
 }

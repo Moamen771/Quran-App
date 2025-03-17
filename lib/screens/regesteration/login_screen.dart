@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quran_app/screens/main_screen.dart';
 import 'package:quran_app/screens/regesteration/signup_screen.dart';
-import '../../widegts/prayer widgets/prayer_time.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PrayerTime(),
+                          builder: (context) => MainScreen(),
                         ));
                   },
                   style: ElevatedButton.styleFrom(

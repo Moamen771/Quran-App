@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quran_app/screens/main_screen.dart';
+import 'package:quran_app/screens/splash_screen.dart';
 
 void main() {
   runApp(const QuranApp());
@@ -12,7 +12,7 @@ class QuranApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainScreen(),
+      home: SplashScreen(),
     );
   }
 }
