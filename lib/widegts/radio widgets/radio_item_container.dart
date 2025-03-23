@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quran_app/models/radio_item.dart';
-
 import '../../constants/app_colors.dart';
 
 class RadioItemContainer extends StatelessWidget {

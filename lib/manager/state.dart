@@ -1,23 +1,70 @@
-import '../models/radio_item.dart';
-import '../models/surahs.dart';
+import 'package:quran_app/models/ayah.dart';
+import 'package:quran_app/models/prayer.dart';
+import 'package:quran_app/models/radio_item.dart';
+import 'package:quran_app/models/surahs.dart';
 
 abstract class AppState {}
 
 class InitialState extends AppState {}
 
-class LoadingState extends AppState {}
+class LoadingPrayerState extends AppState {}
 
-class LoadedState extends AppState {
-  final Map<String, dynamic>? prayers;
-  final List<Surahs>? surahs;
-  final List? ayahs;
-  final List<RadioItem>? radioItems;
+class LoadedPrayerState extends AppState {
+  final List<Prayer>? prayers;
 
-  LoadedState({this.prayers, this.surahs, this.ayahs, this.radioItems});
+  LoadedPrayerState({required this.prayers});
 }
 
-class ErrorState extends AppState {
+class ErrorPrayerState extends AppState {
   final String errorMessage;
 
-  ErrorState({required this.errorMessage});
+  ErrorPrayerState({required this.errorMessage});
+}
+
+////////////////////////////////////////
+
+class LoadingRadioState extends AppState {}
+
+class LoadedRadioState extends AppState {
+  final List<RadioItem> radioItems;
+
+  LoadedRadioState({required this.radioItems});
+}
+
+class ErrorRadioState extends AppState {
+  final String errorMessage;
+
+  ErrorRadioState({required this.errorMessage});
+}
+
+////////////////////////////////////////
+
+class LoadingSurahsState extends AppState {}
+
+class LoadedSurahsState extends AppState {
+  final List<Surahs> surahs;
+
+  LoadedSurahsState({required this.surahs});
+}
+
+class ErrorSurahsState extends AppState {
+  final String errorMessage;
+
+  ErrorSurahsState({required this.errorMessage});
+}
+
+////////////////////////////////////////
+
+class LoadingAyahsState extends AppState {}
+
+class LoadedAyahsState extends AppState {
+  final List<Ayah> ayahs;
+
+  LoadedAyahsState({required this.ayahs});
+}
+
+class ErrorAyahsState extends AppState {
+  final String errorMessage;
+
+  ErrorAyahsState({required this.errorMessage});
 }

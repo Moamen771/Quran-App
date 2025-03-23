@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_app/manager/cubit.dart';
 import 'package:quran_app/screens/splash_screen.dart';
 
 void main() {
@@ -10,9 +12,15 @@ class QuranApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+    return BlocProvider(
+      create: (context) => AppCubit()
+        ..getRadio()
+        ..getPrayers()
+        ..getSurahs(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
+      ),
     );
   }
 }

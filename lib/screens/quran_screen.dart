@@ -1,30 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:quran_app/models/surahs.dart';
-import 'package:quran_app/services/api_services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_app/manager/cubit.dart';
+import 'package:quran_app/manager/state.dart';
 import '../constants/app_colors.dart';
 import '../widegts/quran widgets/quran_container.dart';
 
-class QuranScreen extends StatefulWidget {
+class QuranScreen extends StatelessWidget {
   const QuranScreen({super.key});
-
-  @override
-  State<QuranScreen> createState() => _QuranScreenState();
-}
-
-class _QuranScreenState extends State<QuranScreen> {
-  List<Surahs>? surahs;
-
-  getSurahs() async {
-    ApiServices apiServices = ApiServices();
-    surahs = await apiServices.getSurahName();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    getSurahs();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,18 +39,32 @@ class _QuranScreenState extends State<QuranScreen> {
                   topLeft: Radius.circular(32),
                   topRight: Radius.circular(32),
                 )),
-            child: surahs == null
-                ? Center(
-                    child: CircularProgressIndicator(
-                    color: AppColors.darkGreen,
-                  ))
-                : ListView.builder(
-                    itemCount: surahs!.length,
+            child: BlocBuilder<AppCubit, AppState>(
+              buildWhen: (previous, current) =>
+                  current is LoadingSurahsState ||
+                  current is LoadedSurahsState ||
+                  current is ErrorSurahsState,
+              builder: (context, state) {
+                if (state is LoadedSurahsState) {
+                  return ListView.builder(
+                    itemCount: state.surahs.length,
                     itemBuilder: (context, index) => QuranContainer(
-                      surah: surahs![index],
+                      surah: state.surahs[index],
                     ),
                     padding: EdgeInsets.all(10),
-                  ),
+                  );
+                } else if (state is ErrorSurahsState) {
+                  return Text(state.errorMessage);
+                } else if (state is LoadingSurahsState) {
+                  return Center(
+                      child: CircularProgressIndicator(
+                    color: AppColors.darkGreen,
+                  ));
+                } else {
+                  return SizedBox.shrink();
+                }
+              },
+            ),
           )
         ],
       ),

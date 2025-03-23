@@ -1,32 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:quran_app/models/ayah.dart';
-import 'package:quran_app/services/api_services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_app/manager/cubit.dart';
+import 'package:quran_app/manager/state.dart';
 import 'package:quran_app/widegts/surah%20widgets/ayah_container.dart';
 import '../constants/app_colors.dart';
 
-class SurahScreen extends StatefulWidget {
+class SurahScreen extends StatelessWidget {
   const SurahScreen({super.key, required this.surahName});
 
   final String surahName;
-
-  @override
-  State<SurahScreen> createState() => _SurahScreenState();
-}
-
-class _SurahScreenState extends State<SurahScreen> {
-  List? surahAyahs;
-
-  getSurah() async {
-    ApiServices apiServices = ApiServices();
-    surahAyahs = await apiServices.getSurahAyahs(widget.surahName);
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    getSurah();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +24,7 @@ class _SurahScreenState extends State<SurahScreen> {
                     image: AssetImage('assets/muslim_img4.jpg'),
                     fit: BoxFit.fill)),
             child: Text(
-              widget.surahName,
+              surahName,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -61,25 +43,33 @@ class _SurahScreenState extends State<SurahScreen> {
                 topRight: Radius.circular(32),
               ),
             ),
-            child: surahAyahs == null
-                ? Center(
+            child: BlocBuilder<AppCubit, AppState>(
+              buildWhen: (previous, current) =>
+                  current is LoadingAyahsState ||
+                  current is LoadedAyahsState ||
+                  current is ErrorAyahsState,
+              builder: (context, state) {
+                if (state is LoadedAyahsState) {
+                  return ListView.builder(
+                    itemCount: state.ayahs.length,
+                    itemBuilder: (context, index) => AyahContainer(
+                      ayah: state.ayahs[index],
+                    ),
+                    padding: EdgeInsets.all(10),
+                  );
+                } else if (state is ErrorAyahsState) {
+                  return Text(state.errorMessage);
+                } else if (state is LoadingAyahsState) {
+                  return Center(
                     child: CircularProgressIndicator(
                       color: AppColors.darkGreen,
                     ),
-                  )
-                : ListView.builder(
-                    itemCount: surahAyahs!.length,
-                    itemBuilder: (context, index) => AyahContainer(
-                      ayah: Ayah(
-                          surahName: widget.surahName,
-                          text: surahAyahs![index]["text"],
-                          numberInSurah: surahAyahs![index]["numberInSurah"],
-                          juz: surahAyahs![index]["juz"],
-                          hizbQuarter: surahAyahs![index]["hizbQuarter"],
-                          hasSajda: surahAyahs![index]["sajda"]),
-                    ),
-                    padding: EdgeInsets.all(10),
-                  ),
+                  );
+                } else {
+                  return Text("Error");
+                }
+              },
+            ),
           )
         ],
       ),

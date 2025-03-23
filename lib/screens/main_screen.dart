@@ -1,6 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/constants/app_colors.dart';
+import 'package:quran_app/manager/cubit.dart';
 import 'package:quran_app/screens/prayer_screen.dart';
 import 'package:quran_app/screens/quran_screen.dart';
 import 'home_screen.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/manager/state.dart';
+import 'package:quran_app/models/ayah.dart';
 import 'package:quran_app/services/api_services.dart';
 import '../models/radio_item.dart';
 import '../models/surahs.dart';
@@ -9,63 +10,42 @@ class AppCubit extends Cubit<AppState> {
   ApiServices apiServices = ApiServices();
 
   getSurahs() async {
-    emit(LoadingState());
+    emit(LoadingSurahsState());
     try {
-      List json = apiServices.getSurahName()["data"];
-      List<Surahs> surahs = [];
-      for (Map<String, dynamic> i in json) {
-        surahs.add(Surahs(
-            arName: i["name"],
-            enName: i["englishName"],
-            revelationType: i["revelationType"],
-            numberOfAyahs: i["numberOfAyahs"]));
-      }
-      emit(LoadedState(surahs: surahs));
+      List<Surahs> json = await apiServices.getSurahName();
+      emit(LoadedSurahsState(surahs: json));
     } catch (e) {
-      emit(ErrorState(errorMessage: e.toString()));
+      emit(ErrorSurahsState(errorMessage: e.toString()));
     }
   }
 
   getAyahs(String name) async {
-    emit(LoadingState());
+    emit(LoadingAyahsState());
     try {
-      List json = apiServices.getSurahAyahs(name)["data"]["surahs"];
-      List ayahs = [];
-      for (Map<String, dynamic> i in json) {
-        if (i["name"] == name) {
-          ayahs = i["ayahs"];
-        }
-      }
-      emit(LoadedState(ayahs: ayahs));
+      List<Ayah> json = await apiServices.getSurahAyahs(name);
+      emit(LoadedAyahsState(ayahs: json));
     } catch (e) {
-      emit(ErrorState(errorMessage: e.toString()));
+      emit(ErrorAyahsState(errorMessage: e.toString()));
     }
   }
 
   getPrayers() async {
-    emit(LoadingState());
-
+    emit(LoadingPrayerState());
     try {
-      Map json = apiServices.getPrayerTime();
-      Map<String, dynamic> prayers = json["data"]["timings"];
-      emit(LoadedState(prayers: prayers));
+      var json = await apiServices.getPrayerTime();
+      emit(LoadedPrayerState(prayers: json));
     } catch (e) {
-      emit(ErrorState(errorMessage: e.toString()));
+      emit(ErrorPrayerState(errorMessage: e.toString()));
     }
   }
 
   getRadio() async {
-    emit(LoadingState());
-
+    emit(LoadingRadioState());
     try {
-      List json = apiServices.getRadio()["radios"];
-      List<RadioItem> radioItems = [];
-      for (Map<String, dynamic> i in json) {
-        radioItems.add(RadioItem(id: i["id"], name: i["name"], url: i["url"]));
-      }
-      emit(LoadedState(radioItems: radioItems));
+      List<RadioItem> json = await apiServices.getRadio();
+      emit(LoadedRadioState(radioItems: json));
     } catch (e) {
-      emit(ErrorState(errorMessage: e.toString()));
+      emit(ErrorRadioState(errorMessage: e.toString()));
     }
   }
 }
